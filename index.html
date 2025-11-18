@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小探险家 - EduHere</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- API密钥验证页面 -->
+    <div id="api-key-container">
+        <div class="api-key-form">
+            <h2>欢迎使用[小探险家]</h2>
+            <p>为了提供更好的服务，请输入您的ModelScope API密钥</p>
+            <p>您可以访问 <a href="https://www.modelscope.cn/my/myaccesstoken" target="_blank">https://www.modelscope.cn/my/myaccesstoken</a> 获取访问令牌</p>
+            
+            <div class="form-group">
+                <label for="api-key-input">API密钥</label>
+                <input type="text" id="api-key-input" placeholder="请输入您的ModelScope API密钥" required>
+            </div>
+            
+            <button class="btn btn-primary" id="verify-key-btn">验证并进入</button>
+        </div>
+    </div>
+    
+    <!-- 主页面 -->
+    <div id="main-container">
+        <!-- 导航栏 -->
+        <div class="navbar">
+            <div class="container navbar-content">
+                <div class="navbar-logo">
+                    <div class="logo-icon">E</div>
+                    <div class="logo-text">EduHere</div>
+                </div>
+                
+                <div class="nav-links">
+                    <a href="#" class="nav-item active">首页</a>
+                    <a href="#pbl-section" class="nav-item">PBL任务</a>
+                    <a href="#resources-section" class="nav-item">学习资源</a>
+                    <a href="#teacher-assistant" class="nav-item">教师助手</a>
+                    <a href="#help" class="nav-item">帮助中心</a>
+                </div>
+                
+                <div class="nav-user">
+                    <button class="notification-btn">
+                        <span class="notification-badge"></span>
+                        🔔
+                    </button>
+                    <div class="user-profile">T</div>
+                    <button class="logout-btn" id="logout-btn">退出登录</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- 头部欢迎区 -->
+            <div class="welcome-section">
+                <div class="welcome-content">
+                    <h1>我们热爱这个世界，才真正活在这个世界上</h1>
+                    <p>通过趣味PBL任务和互动学习，让每个孩子都能在探索中成长，发现学习的乐趣</p>
+                </div>
+            </div>
+
+            <!-- 统计卡片 -->
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <div class="stat-number">求真</div>
+                    <div class="stat-label">eternal truths</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">爱智</div>
+                    <div class="stat-label">Intelligence</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">爱生活</div>
+                    <div class="stat-label">Passion for living</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">探未知</div>
+                    <div class="stat-label">Exploration for the unknown</div>
+                </div>
+            </div>
+
+            <!-- PBL任务模块 -->
+            <div id="pbl-section" class="pbl-section">
+                <div class="section-title">
+                    <div class="section-icon">🎯</div>
+                    <h2>PBL任务生成器</h2>
+                </div>
+                <div class="section-subtitle">为乡村儿童创建有趣、实用的项目式学习任务，激发他们的探索精神</div>
+
+
+                <!-- PBL控制区域 -->
+                <div class="pbl-controls">
+                    <div class="pbl-input-group">
+                        <div>
+                            <label for="pbl-topic">任务主题</label>
+                            <input type="text" id="pbl-topic" placeholder="请输入任务主题，例如：观察家乡的植物">
+                        </div>
+                        <div>
+                            <label for="pbl-grade">适合年级</label>
+                            <select id="pbl-grade">
+                                <option value="1-3">1-3年级</option>
+                                <option value="4-6">4-6年级</option>
+                                <option value="7-9">7-9年级</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>&nbsp;</label>
+                            <button class="btn btn-primary" id="generate-pbl-btn">
+                                <span id="generate-icon">✨</span>
+                                生成任务
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PBL结果区域 -->
+                <div class="pbl-result">
+                    <div id="pbl-result-content">
+                        <div class="empty-state">
+                            <div class="empty-icon">📝</div>
+                            <h4>开始创建PBL任务</h4>
+                            <p>请输入任务主题，点击生成按钮开始创建适合乡村学生的探究性学习任务</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 结果通知组件 -->
+                <div id="result-notification" class="result-notification">
+                    <button class="close-btn" onclick="this.parentElement.classList.remove('show')">×</button>
+                    <h4 id="notification-title">通知</h4>
+                    <div id="notification-content">
+                        <p>内容将显示在这里</p>
+                    </div>
+                </div>
+
+                <!-- PBL任务示例 -->
+                <div class="section-title" style="margin-top: 40px;">
+                    <div class="section-icon">🔥</div>
+                    <h2>PBL任务示例</h2>
+                </div>
+                <div class="tags">
+                    <span class="tag">科学探索</span>
+                    <span class="tag">生活实践</span>
+                    <span class="tag">数学应用</span>
+                    <span class="tag">语文写作</span>
+                    <span class="tag">艺术创作</span>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <div class="task-card">
+                        <h3 class="task-title">探索家乡的水资源</h3>
+                        <p class="task-description">调查家附近的河流、水井或其他水源，了解水质情况，分析可能的污染原因，并提出保护建议。</p>
+                        <div class="task-blocks">
+                            <span class="task-block">科学</span>
+                            <span class="task-block">环境</span>
+                            <span class="task-block">4-6年级</span>
+                        </div>
+                    </div>
+                    <div class="task-card">
+                        <h3 class="task-title">制作家乡特产宣传册</h3>
+                        <p class="task-description">调查家乡的特色农产品或手工艺品，收集信息、拍摄照片，制作一本精美的宣传册，向外界介绍家乡特色。</p>
+                        <div class="task-blocks">
+                            <span class="task-block">语文</span>
+                            <span class="task-block">美术</span>
+                            <span class="task-block">2-5年级</span>
+                        </div>
+                    </div>
+                    <div class="task-card">
+                        <h3 class="task-title">农田数学小调查</h3>
+                        <p class="task-description">走访当地农田，测量土地面积，计算农作物产量，了解农业生产中的数学应用，撰写调查报告。</p>
+                        <div class="task-blocks">
+                            <span class="task-block">数学</span>
+                            <span class="task-block">农业</span>
+                            <span class="task-block">5-7年级</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 功能模块 -->
+            <div id="features" class="section-title">
+                <div class="section-icon">🌟</div>
+                <h2>乡村教育助手功能</h2>
+            </div>
+            <div class="section-subtitle">专为乡村教师和学生设计的全方位学习支持</div>
+
+            <div class="features-grid">
+                <!-- 学习资源推荐 -->
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>学习资源推荐</h3>
+                    <p>根据学生的兴趣和学习需求，智能推荐适合乡村学生的学习资源，包括电子书籍、视频课程和实践活动。</p>
+                    <br>
+                    <div class="pbl-controls">
+                        <input type="text" id="resource-topic" placeholder="输入学生兴趣方向，如：植物、动物、科技...">
+                        <button class="btn btn-outline" id="recommend-resource-btn">获取推荐</button>
+                    </div>
+                </div>
+
+                <!-- 学习问题解答 -->
+                <div class="feature-card">
+                    <div class="feature-icon">❓</div>
+                    <h3>学习问题解答</h3>
+                    <p>学生可以提出学习中遇到的问题，系统将提供简单易懂的解答，并结合乡村生活实际举例说明。</p>
+                    <br>
+                    <div class="pbl-controls">
+                        <textarea id="question-input" rows="3" placeholder="请输入学习问题..."></textarea>
+                        <button class="btn btn-outline" id="answer-question-btn">获取解答</button>
+                    </div>
+                </div>
+
+                <!-- 教师助手 -->
+                <div id="teacher-assistant" class="feature-card">
+                    <div class="feature-icon">👨‍🏫</div>
+                    <h3>教师助手</h3>
+                    <p>为乡村教师提供教学支持，包括教案设计、教具制作建议、作业设计和课堂管理技巧等。</p>
+                    <div class="pbl-controls">
+                        <select id="teacher-need">
+                            <option value="教案设计">教案设计</option>
+                            <option value="教具制作">教具制作</option>
+                            <option value="作业设计">作业设计</option>
+                            <option value="课堂管理">课堂管理</option>
+                        </select>
+                        <input type="text" id="teacher-topic" placeholder="输入具体主题，如：小学数学、自然科学...">
+                        <button class="btn btn-outline" id="teacher-help-btn">获取帮助</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 学习资源模块 -->
+            <div id="resources-section" class="resources-section">
+                <div class="section-title">
+                    <div class="section-icon">🎓</div>
+                    <h2>精选学习资源</h2>
+                </div>
+                <div class="section-subtitle">适合乡村学生的优质学习材料，激发学习兴趣</div>
+
+                <div class="resource-cards">
+                    <div class="resource-card">
+                        <h3 class="resource-title">自然科学探索手册</h3>
+                        <p class="resource-description">专为乡村学生设计的科学实验指南，利用身边材料开展有趣的科学探索活动。</p>
+                        <div class="tags">
+                            <span class="tag">科学</span>
+                            <span class="tag">实验</span>
+                            <span class="tag">实践</span>
+                        </div>
+                    </div>
+                    <div class="resource-card">
+                        <h3 class="resource-title">乡土文化故事集</h3>
+                        <p class="resource-description">收集整理各地区的民间故事、传说和风俗习惯，帮助孩子了解家乡文化。</p>
+                        <div class="tags">
+                            <span class="tag">语文</span>
+                            <span class="tag">文化</span>
+                            <span class="tag">阅读</span>
+                        </div>
+                    </div>
+                    <div class="resource-card">
+                        <h3 class="resource-title">数学趣味应用</h3>
+                        <p class="resource-description">通过生活中的实际问题，学习数学知识，体会数学在农业生产和日常生活中的应用。</p>
+                        <div class="tags">
+                            <span class="tag">数学</span>
+                            <span class="tag">应用</span>
+                            <span class="tag">生活</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 学习资源详情模态窗口 -->
+            <div id="resource-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="modal-title">学习资源详情</h3>
+                        <span class="close-btn" id="close-modal">&times;</span>
+                    </div>
+                    <div class="modal-body" id="modal-body">
+                        <p>点击卡片查看详情</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 帮助中心 -->
+            <div id="help" class="pbl-section">
+                <div class="section-title">
+                    <div class="section-icon">❓</div>
+                    <h2>帮助中心</h2>
+                </div>
+                <div class="section-subtitle">使用过程中如有任何问题，请参考以下常见问题解答</div>
+
+                <div style="line-height: 2;">
+                    <p><strong>如何获取API密钥？</strong> - 您可以访问 <a href="https://www.modelscope.cn/my/myaccesstoken" target="_blank">ModelScope官方网站</a> 注册账号并获取API密钥。</p>
+                    <p><strong>生成的PBL任务适合哪个年龄段？</strong> - 您可以通过年级选择器指定任务适合的学生年龄段。</p>
+                    <p><strong>如何保存生成的任务？</strong> - 您可以复制任务内容保存到本地，或使用分享功能发送给其他老师。</p>
+                    <p><strong>遇到API调用失败怎么办？</strong> - 请检查您的网络连接和API密钥是否有效，也可以尝试刷新页面后重新操作。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <div class="footer">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>关于我们</h3>
+                    <p>乡村学生学习助手致力于为乡村地区的教师和学生提供优质的教育资源和AI辅助工具，促进教育公平。</p>
+                </div>
+                <div class="footer-column">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="#pbl-section">PBL任务</a></li>
+                        <li><a href="#resources-section">学习资源</a></li>
+                        <li><a href="#teacher-assistant">教师助手</a></li>
+                        <li><a href="#help">帮助中心</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>联系我们</h3>
+                    <p>如有任何问题或建议，请随时联系我们</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
